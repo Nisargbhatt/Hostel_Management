@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+  <data>
+    <!-- explicit form view definition -->
+
+    <record id="view_hms_form" model="ir.ui.view">
+         <field name="name">view.hms.form</field>
+         <field name="model">hostel_managment.student</field>
+         <field name="arch" type="xml">
+             <!-- <form string="Student">
+                 <sheet>
+                      <h1>General Information</h1>
+                       <group col="4" colspan="4">
+                       <field name="image" widget='image' class="oe_avatar"/>
+                       <field name="name" placeholder="Type Student's name"/>
+                       <field name="middlename" placeholder="Father's name"/>
+                       <field name="lastname" placeholder="Surname"/>
+                       </group>
+                       <group>
+                       <field name="s_no"/>
+                       <field name="dob"/>
+                       <field name="s_gender" widget='radio'/>
+                       <field name="school" widget='school'/>
+                       <field name="s_address"/>
+                       <field name="s_pincode"/>
+                       <field name="s_contact_no"/>
+                       <field name="f_contact_no"/>
+                       </group>
+                </sheet>
+             </form> -->
+
+
+     <form string="Student">
+	   <sheet>
+		 <field name="image" widget="image" class="oe_left oe_avatar" modifiers="{}"/>
+		 <div name="title_name" class="oe_title">
+			<h1>
+				<table>
+					<tr>
+						<td>
+							<field name="name" required="1" placeholder="First Name" style="padding-right:10px" modifiers="{'required': true}"/>
+						</td>
+						<td>
+							<field name="middlename" placeholder="Middle Name" style="padding-right:10px" modifiers="{}"/>
+						</td>
+						<td>
+							<field name="lastname" placeholder="Last Name" style="padding-right:10px" modifiers="{'required': true}"/>
+						</td>
+					</tr>
+				</table>
+			</h1>
+		</div>
+		<notebook colspan="4">
+			<page name="personal_information" string="Personal Information">
+				<group col="4" colspan="4" name="personal_detail">
+					<field name="s_gender" modifiers="{'required': true}"/>
+					<field name="dob" modifiers="{'required': true}"/>
+					<field name="nationality" can_create="true" can_write="true" modifiers="{}"/>
+					<field name="lang" modifiers="{}"/>
+					<field name="blood_group" modifiers="{}"/>
+          <field name="s_contact_no"/>
+          <field name="f_contact_no"/>
+				</group>
+        <group>
+          <field name="s_address"/>
+          <field name="s_pincode"/>
+        </group>
+			</page>
+			<page name="educational" string="Educational">
+				<group col="4" colspan="4">
+          <field name="school"/>
+					<field name="course" on_change="1" can_create="true" can_write="true" modifiers="{'required': true}"/>
+					<field name="s_no" modifiers="{'readonly': true}"/>
+				</group>
+			</page>
+		</notebook>
+	</sheet>
+</form>
+</field>
+</record>
+
+     <!-- Tree view for student_info -->
+
+    <record model="ir.ui.view" id="view_hms_tree">
+      <field name="name">hostel managment Student Register</field>
+      <field name="model">hostel_managment.student</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <!-- <field name="middlename"/> -->
+          <field name="lastname"/>
+          <field name="school"/>
+          <field name="s_no"/>
+          <!-- <field name="dob"/> -->
+          <!-- <field name="caretaker"/> -->
+          <!-- <fields name="s_room_no"/> -->
+          <!-- <field name="s_address"/> -->
+          <!-- <field name="s_pincode"/> -->
+          <field name="s_contact_no"/>
+          <field name="f_contact_no"/>
+        </tree>
+      </field>
+    </record>
+
+
+<!-- form view for caretaker -->
+
+<record id="view_caretaker_form" model="ir.ui.view">
+
+     <field name="name">view.caretaker.form</field>
+     <field name="model">student.caretaker</field>
+     <field name="arch" type="xml">
+         <form string="Caretaker">
+             <sheet>
+                   <group>
+                   <field name="image" widget='image' class="oe_avatar"/><!-- the class='oe_avatar' is to decide the height and width of the image it is a predefined value-->
+                   <field name="c_name" placeholder="Type your name"/>
+                   <field name="c_contact_no"/>
+                   <field name="c_address"/>
+                   </group>
+            </sheet>
+         </form>
+     </field>
+ </record>
+
+<!-- Tree view for caretaker -->
+
+<record model="ir.ui.view" id="view_caretaker_tree">
+  <field name="name">student_caretaker</field>
+  <field name="model">student.caretaker</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="c_name"/>
+      <field name="c_contact_no"/>
+      <field name="c_address"/>
+    </tree>
+  </field>
+</record>
+
+
+
+    <!-- actions opening views on models -->
+
+
+    <record id="hms_action_window" model="ir.actions.act_window">
+        <field name="name">Student Info</field>
+        <field name="res_model">hostel_managment.student</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_hms_tree"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new Student_Info
+          </p>
+        </field>
+    </record>
+
+    <record id="caretaker_action_window" model="ir.actions.act_window">
+        <field name="name">student_caretaker</field>
+        <field name="res_model">student.caretaker</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_caretaker_tree"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new student_caretaker
+          </p>
+        </field>
+    </record>
+
+
+
+<!-- form view for hostel_rooms -->
+
+<record id="view_rooms_form" model="ir.ui.view">
+
+     <field name="name">view.rooms.form</field>
+     <field name="model">hostel_managment.hostel_rooms</field>
+     <field name="arch" type="xml">
+         <form string="Hostel Rooms">
+             <sheet>
+                   <group>
+                   <field name="room_no"/>
+                   <field name="room_code"/>
+                   <field name="room_capacity"/>
+                   <field name="room_rent"/>
+                   <field name="room_faci"/>
+                   </group>
+            </sheet>
+         </form>
+     </field>
+ </record>
+
+
+
+ <!-- Tree view for hostel_rooms -->
+ <record model="ir.ui.view" id="view_hostel_rooms_tree">
+   <field name="name">Hostel Rooms</field>
+   <field name="model">hostel_managment.hostel_rooms</field>
+   <field name="arch" type="xml">
+     <tree>
+       <field name="room_no">Room No</field>
+       <field name="room_code">Room Code</field>
+       <field name="room_capacity">Room Capacity</field>
+       <field name="room_rent">Room Rent</field>
+
+     </tree>
+   </field>
+ </record>
+
+
+<!--  Action for hostel_rooms-->
+<record id="hostel_rooms_action_window" model="ir.actions.act_window">
+    <field name="name">Rooms</field>
+    <field name="res_model">hostel_managment.hostel_rooms</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_hostel_rooms_tree"/>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+        Click to add a new Room
+      </p>
+    </field>
+</record>
+
+
+
+<!-- Room allocation -->
+
+
+
+<record id="view_room_allocation_form" model="ir.ui.view">
+
+     <field name="name">view.room.allocation.form</field>
+     <field name="model">hostel_managment.room_allocation</field>
+     <field name="arch" type="xml">
+         <form string="Hostel Room Allocation">
+             <sheet>
+                   <group>
+                   <field name="a_room_no"/>
+                   <field name="a_students"/>
+                   <field name="a_caretaker">Caretaker</field>
+
+                   </group>
+            </sheet>
+         </form>
+     </field>
+ </record>
+
+
+
+ <!-- Tree view for hostel_rooms -->
+ <record model="ir.ui.view" id="view_room_allocation_tree">
+   <field name="name">Hostel Room Allocation</field>
+   <field name="model">hostel_managment.room_allocation</field>
+   <field name="arch" type="xml">
+     <tree>
+       <field name="a_room_no">Room No</field>
+       <field name="a_students">Students</field>
+       <field name="a_caretaker">Caretaker</field>
+     </tree>
+   </field>
+ </record>
+
+
+<!--  Action for hostel_rooms-->
+<record id="room_allocation_action_window" model="ir.actions.act_window">
+    <field name="name">Room Allocation</field>
+    <field name="res_model">hostel_managment.room_allocation</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_room_allocation_tree"/>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+        Click to add a Allocate Room
+      </p>
+    </field>
+</record>
+
+
+
+    <!-- Top menu item -->
+
+        <menuitem name="Hostel Management" id="hms.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Hostel Management" id="hms.menu_0_list" parent="hms.menu_root"/>
+    <menuitem name="Student Info" id="hms.menu_1_list" parent="hms.menu_root" action="hms_action_window"/>
+    <menuitem name="Student Caretaker" id="ctaker_student_menu" parent="hms.menu_root" action="caretaker_action_window"/>
+    <menuitem name="Rooms" id="hostel_rooms_student_menu" parent="hms.menu_root"
+                        action="hostel_rooms_action_window"/>
+    <menuitem name="Allocated Rooms" id="hostel_room_allocation_student_menu" parent="hms.menu_root" action="room_allocation_action_window"/>
+
+  </data>
+</openerp>
